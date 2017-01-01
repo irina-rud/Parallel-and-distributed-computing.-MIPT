@@ -1,0 +1,1 @@
+hadoop jar jar/MatrixMultiplication.jar ru.mipt.MatrixMultiplication small_named_matrix java_matrix_result

@@ -6,34 +6,22 @@
 #include <iostream>
 #include <vector>
 #include "Sell.h"
+#include "names.h"
 
 class CTorus {
-private:
-    std::vector<Sell> torus;
-    long length;
-    long height;
 public:
-    CTorus(long len, long heig);
+    std::vector<Sell*> torus;
+    unsigned long length;
+    unsigned long height;
 
-    long getHeight();
+    std::vector<IBacterium*> configured;
 
-    long getLength();
-
-    int isLiving(long x, long y);
-
-    int numOfNeighbours(long x, long y);
-
-    void action(int act, int wasHere, long x, long y);
-
-    int countCell( long x, long y);
+public:
+    CTorus(unsigned long len,unsigned long heig);
 
     void print();
 
-    void set_nothing(long x, long y);
-
-    void set(std::vector<int>& input);
-
-    int getCell(long x, long y);
+    void countCell(long x, long y);
 };
 
 

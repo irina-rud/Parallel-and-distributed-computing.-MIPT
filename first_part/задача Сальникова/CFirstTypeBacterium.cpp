@@ -3,3 +3,10 @@
 //
 
 #include "CFirstTypeBacterium.h"
+
+CFirstTypeBacterium::CFirstTypeBacterium() {
+    type = first_type_bacterium;
+
+    turbo_division_mode = false;
+    starvation_mode = true;
+}

@@ -10,14 +10,14 @@
 
 class CTorus {
 public:
-    std::vector<Sell*> torus;
-    unsigned long length;
-    unsigned long height;
+    std::vector<Sell> torus;
+    long length;
+    long height;
 
-    std::vector<IBacterium*> configured;
+    void* configured;
 
 public:
-    CTorus(unsigned long len,unsigned long heig);
+    CTorus(long len,long heig);
 
     void print();
 

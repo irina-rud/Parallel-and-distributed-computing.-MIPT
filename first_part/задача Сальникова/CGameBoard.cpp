@@ -6,7 +6,7 @@
 #include "CSecondTypeBacterium.h"
 #include "CFirstTypeBacterium.h"
 
-CGameBoard::CGameBoard(long len, long heig){
+CGameBoard::CGameBoard(long len, long heig):length(len), height(heig){
     now = 0;
     if (heig < 0 || len < 0)
         throw new std::exception();
@@ -16,6 +16,11 @@ CGameBoard::CGameBoard(long len, long heig){
         threeToruses.push_back(CTorus(len,heig));
     }
     configuredCreatures.resize(3);
+    threeToruses[0].configured = &configuredCreatures;
+    threeToruses[1].configured = &configuredCreatures;
+    threeToruses[2].configured = &configuredCreatures;
+
+    configuredCreatures[0] = new IBacterium();
 }
 
 
@@ -70,6 +75,45 @@ void CGameBoard::configBacterium(std::vector<long> &properties) {
 
 
 }
+
+void CGameBoard::configSell(std::vector<long> properties) {
+    if (properties.size() != 8) {
+        throw new std::exception;
+        return;
+    }
+    if ((properties[0] >= threeToruses[now].length) || (properties[1] >= threeToruses[now].height)
+            ||(properties[0] < 0) || (properties[1] < 0)) {
+        throw new std::exception;
+        return;
+    }
+
+    Sell* to_config = &threeToruses[(now+prev_board) % 3].torus[properties[0] + properties[1] * length];
+
+    to_config->properties[breeding_ground] = properties[2];
+    to_config->properties[first_substance] = properties[3];
+    to_config->properties[second_substance] = properties[4];
+
+    if (properties[5]){
+        to_config->bacterium = configuredCreatures[first_type_bacterium];
+        if (properties[6] > 0) {
+            to_config->starvation_limits = properties[6];
+        }
+    } else if (properties[7]){
+        to_config->bacterium = configuredCreatures[second_type_bacterium];
+    }
+
+}
+
+void CGameBoard::prepareTorus() {
+    for (int i = 0; i<threeToruses[(now+prev_board) % 3].torus.size(); ++i){
+        Sell* sell = &threeToruses[(now+prev_board) % 3].torus[i];
+        sell->init_empty(configuredCreatures[0]);
+    }
+}
+
+
+
+
 
 
 

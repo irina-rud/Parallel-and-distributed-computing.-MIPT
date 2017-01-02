@@ -17,7 +17,6 @@
 #define not_initialised -2
 
 
-#include <exception>
 
 
 

@@ -5,6 +5,7 @@
 #pragma once
 #include "IBacterium.h"
 #include "names.h"
+#include <iostream>
 
 //. В каждой клетке может находиться питательная среда, а также два вида бактерий. Питательная среда изменяется по некоторому закону от времени и координат клетки в пространстве.
 
@@ -14,10 +15,11 @@ public:
 
     bool settled = false;
     IBacterium* bacterium;
-    unsigned long* properties = new unsigned long[3];
+    long* properties = new long[3];
+    long starvation_limits = inf_lives;
 
-    Sell(){}
-
+    Sell();
+    void init_empty(IBacterium* empty);
 
 };
 

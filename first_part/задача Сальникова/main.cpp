@@ -67,6 +67,39 @@ void read_config(std::ifstream * creatures,CGameBoard* board){
 }
 
 
+void read_state(std::ifstream* state, CGameBoard* board ){
+    std::string s;
+    char* token;
+    long value;
+
+    board->prepareTorus();
+
+    std::vector<long> properties;
+    properties.reserve(8);
+    while (std::getline( *state, s ))
+    {
+        std::string::size_type begin = s.find_first_not_of( " \f\t\v" );
+
+        if (begin == std::string::npos) continue;
+        else if (std::string( "#" ).find( s[ begin ] ) != std::string::npos) continue;
+        else {
+            token = strtok((char *) s.data(), " ");
+            while (token != NULL)
+            {
+                value = std::stol(token,  NULL, 0);
+                properties.push_back(value);
+                token = strtok (NULL, " ");
+            }
+            if (properties.size() != 8){
+                continue;
+            }else{
+                board->configSell(properties);
+            }
+            properties.clear();
+        }
+    }
+}
+
 int main(){
     std::ifstream state("/home/riv/concurrency/first_part/задача Сальникова/state.txt");
     std::ifstream creatures("/home/riv/concurrency/first_part/задача Сальникова/creatures.conf");
@@ -77,7 +110,8 @@ int main(){
     CGameBoard* board = new CGameBoard(length,height);
 
     read_config(&creatures, board);
-
+    read_state(&state, board);
+    board->printTorus();
 
 //    time_t start = time(NULL);
 //    #pragma omp parallel num_threads(kernels)

@@ -21,11 +21,17 @@ public:
     std::vector<CTorus> threeToruses;
     std::vector<IBacterium*> configuredCreatures;
     int now;
+    long length;
+    long height;
 
 public:
     CGameBoard(long len, long heig);
 
     void configBacterium(std::vector<long>& properties);
+
+    void configSell(std::vector<long> properties);
+
+    void prepareTorus();
 
     void changeMode();
 

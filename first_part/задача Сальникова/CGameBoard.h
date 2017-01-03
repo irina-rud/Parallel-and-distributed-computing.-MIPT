@@ -35,7 +35,8 @@ public:
 
     void changeMode();
 
-    void countCell(long index);
+    void countCell_bacterium(long index);
+    void set_not_init(long index);
 
     void printTorus();
 };

@@ -21,7 +21,6 @@ public:
 
     void print();
 
-    void countCell(long x, long y);
 };
 
 

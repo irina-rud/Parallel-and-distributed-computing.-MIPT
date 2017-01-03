@@ -11,7 +11,8 @@
 
 class Sell {
 public:
-    bool initialised = false;
+    bool initialised_bacterium = false;
+    bool initialised_properties = false;
 
     bool settled = false;
     IBacterium* bacterium;
@@ -20,7 +21,7 @@ public:
 
     Sell();
     void init_empty(IBacterium* empty);
-
+    void set_not_init();
 };
 
 

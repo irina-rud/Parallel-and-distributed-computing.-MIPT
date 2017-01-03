@@ -15,7 +15,7 @@ void CTorus::print(){
     std::cout << "Torus: " << std::endl;
     for (int i = 0; i < height; ++i){
         for (int j = 0; j < length; ++j){
-            if (!torus[i*length + j].initialised){
+            if (!torus[i*length + j].initialised_bacterium){
                 std::cout << "? ";
             } else if (torus[i*length + j].bacterium->type == not_initialised){
                 std::cout << "- ";
@@ -31,9 +31,6 @@ void CTorus::print(){
 }
 
 
-
-void CTorus::countCell( long x, long y){
-}
 
 
 

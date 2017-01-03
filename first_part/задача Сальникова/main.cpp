@@ -111,35 +111,24 @@ int main(){
 
     read_config(&creatures, board);
     read_state(&state, board);
-    board->printTorus();
+    //board->printTorus();
+    if ((length %5 != 0) && (height %5 != 0)){
+        std::cout<<"Это противозаконно. Я не готов к этому.";
+        return 0;
+    }
 
-//    time_t start = time(NULL);
-//    #pragma omp parallel num_threads(kernels)
-//    {
-//        size_t start;
-//        int name = omp_get_thread_num();
-//        if (name < rest) {
-//            start = (size_t) ((size + 1) * name);
-//        } else {
-//            start = (size_t) (size * name + rest);
-//        }
-//        for (int j = 0; j < iterations; ++j) {
-//            {
-//                for (int i = 0; !(board_link->isCounted(start + i)); ++i) {
-//                    board_link->countCell(start + i);
-//                }
-//                for (int i = -1; !(board_link->isCounted(start + i)); --i) {
-//                    board_link->countCell(start + i);
-//                }
-//            }
-//            #pragma omp barrier
-//            if (name == 0) {
-//                board_link->changeMode();
-//            }
-//            #pragma omp barrier
-//        }
-//    }
-//    time_t end = time(NULL);
-//    std::cout << "Execution Time: " << (double)(end-start) << " Seconds" <<std::endl;
+    for (int small_len_index = 0; small_len_index <5; ++small_len_index){
+        for (int small_hei_index = 0; small_hei_index <5; ++small_hei_index){
+            #pragma omp parallel for num_threads(8)
+            for (int coub_len_index = 0; coub_len_index < length / 5; ++coub_len_index){
+                for (int coub_hei_index = 0; coub_hei_index < length / 5; ++coub_hei_index){
+                    int i = coub_len_index * 5 + small_len_index;
+                    int j = coub_hei_index * 5 + small_hei_index;
+                    board->set_not_init(i + j * length);
+                    board->countCell_bacterium(i +j*length);
+                }
+            }
+        }
+    }
     return 0;
 }

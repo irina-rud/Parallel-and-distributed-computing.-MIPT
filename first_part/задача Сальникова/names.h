@@ -14,7 +14,7 @@
 #define prev_board 2
 
 #define inf_lives -1
-#define not_initialised -2
+#define not_initialised 0
 
 
 

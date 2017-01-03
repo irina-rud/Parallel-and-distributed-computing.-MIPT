@@ -125,18 +125,18 @@ void CGameBoard::countCell_bacterium(long index) {
     }else{
         return;
     }
-    if ((completed->properties[breeding_ground] + completed->bacterium->consumption_secretion[breeding_ground] <0) &&
-        (completed->properties[first_substance] + completed->bacterium->living_bound[first_substance]<0) &&
-        (completed->properties[second_substance] + completed->bacterium->living_bound[second_substance]<0)){
+    if ((completed->properties[breeding_ground] + completed->bacterium->consumption_secretion[breeding_ground] +toCount->properties[breeding_ground]<0) &&
+        (completed->properties[first_substance] + completed->bacterium->living_bound[first_substance] +toCount->properties[first_substance]<0) &&
+        (completed->properties[second_substance] + completed->bacterium->living_bound[second_substance]+toCount->properties[second_substance]<0)){
         if (completed->bacterium->starvation_mode){
-            if (completed->properties[second_substance] + 2 *completed->bacterium->living_bound[second_substance]<0){
+            if (completed->properties[second_substance] + 2 *completed->bacterium->living_bound[second_substance] +toCount->properties[second_substance]<0){
                 toCount->bacterium = configuredCreatures[not_initialised];
                 --toCount->starvation_limits;
                 return;
             }else{
-                toCount->properties[breeding_ground] = completed->properties[breeding_ground];
-                toCount->properties[first_substance] = completed->properties[first_substance];
-                toCount->properties[second_substance] = completed->properties[second_substance] + 2 *completed->bacterium->living_bound[second_substance];
+                toCount->properties[breeding_ground] = completed->properties[breeding_ground] +toCount->properties[breeding_ground];
+                toCount->properties[first_substance] = completed->properties[first_substance]+toCount->properties[first_substance];
+                toCount->properties[second_substance] = completed->properties[second_substance] + 2 *completed->bacterium->living_bound[second_substance]+toCount->properties[second_substance];
             }
         }else{
             toCount->bacterium = configuredCreatures[not_initialised];
@@ -144,9 +144,9 @@ void CGameBoard::countCell_bacterium(long index) {
         }
         return;
     } else{
-        toCount->properties[breeding_ground] = completed->properties[breeding_ground]+completed->bacterium->living_bound[breeding_ground];
-        toCount->properties[first_substance] = completed->properties[first_substance] + completed->bacterium->living_bound[first_substance];
-        toCount->properties[second_substance] = completed->properties[second_substance] + completed->bacterium->living_bound[second_substance];
+        toCount->properties[breeding_ground] = completed->properties[breeding_ground]+completed->bacterium->living_bound[breeding_ground] +toCount->properties[breeding_ground];
+        toCount->properties[first_substance] = completed->properties[first_substance] + completed->bacterium->living_bound[first_substance] +toCount->properties[first_substance];
+        toCount->properties[second_substance] = completed->properties[second_substance] + completed->bacterium->living_bound[second_substance]+toCount->properties[second_substance];
     }
     int eat_substance;
     int produce_substance;
@@ -157,19 +157,19 @@ void CGameBoard::countCell_bacterium(long index) {
         eat_substance = second_substance;
         produce_substance = first_substance;
     }
-    if (threeToruses[(now + prev_board) % 3].torus[(index + length * height - 1) % length * height].properties[eat_substance] >= 1) {
+    if (threeToruses[(now + prev_board) % 3].torus[(index + length * height - 1) % length * height].properties[eat_substance] +toCount->properties[eat_substance]>= 1) {
         threeToruses[now].torus[(index + length * height - 1) % length * height].properties[eat_substance] += -1;
         toCount->properties[produce_substance] += 2;
     }
-    if (!threeToruses[(now + prev_board) % 3].torus[(index + length * height - length) % length * height].properties[eat_substance] >= 1) {
+    if (threeToruses[(now + prev_board) % 3].torus[(index + length * height - length) % length * height].properties[eat_substance] +toCount->properties[eat_substance]>= 1) {
         threeToruses[now].torus[(index + length * height - length) % length * height].properties[eat_substance] += -1;
         toCount->properties[produce_substance] += 2;
     }
-    if (!threeToruses[(now + prev_board) % 3].torus[(index + 1) % length * height].properties[eat_substance] >= 1) {
+    if (threeToruses[(now + prev_board) % 3].torus[(index + 1) % length * height].properties[eat_substance] +toCount->properties[eat_substance] >= 1) {
         threeToruses[now].torus[(index + 1) % length * height].properties[eat_substance] += -1;
         toCount->properties[produce_substance] += 2;
     }
-    if (!threeToruses[(now + prev_board) % 3].torus[(index + length) % length * height].properties[eat_substance] >= 1) {
+    if (threeToruses[(now + prev_board) % 3].torus[(index + length) % length * height].properties[eat_substance] +toCount->properties[eat_substance]>= 1) {
         threeToruses[now].torus[(index + length) % length * height].properties[eat_substance] += -1;
         toCount->properties[produce_substance] += 2;
     }

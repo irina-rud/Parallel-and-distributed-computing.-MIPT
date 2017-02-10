@@ -1,12 +1,12 @@
 #include <iostream>
-#include <stdio.h>
 #include <fstream>
 #include <vector>
 #include <omp.h>
 #include "CGameBoard.h"
 #include <stdlib.h>
+#include <time.h>
 #include <cstring>
-#include "names.h"
+
 
 void read_size(std::ifstream* state, unsigned long* len,unsigned long* hei ){
     std::string s, value1, value2;
@@ -48,12 +48,12 @@ void read_config(std::ifstream * creatures,CGameBoard* board){
         if (begin == std::string::npos) continue;
         else if (std::string( "#" ).find( s[ begin ] ) != std::string::npos) continue;
         else {
-            token = strtok((char *) s.data(), " ");
+            token = std::strtok((char *) s.data(), " ");
             while (token != NULL)
             {
-                value = std::stol(token,  NULL, 0);
+                value = strtol(token,  NULL, 0);
                 properties.push_back(value);
-                token = strtok (NULL, " ");
+                token = std::strtok (NULL, " ");
             }
             if (properties.size() != 13){
                 std::cout<<"properties size: "<<properties.size()<<std::endl;
@@ -86,7 +86,7 @@ void read_state(std::ifstream* state, CGameBoard* board ){
             token = strtok((char *) s.data(), " ");
             while (token != NULL)
             {
-                value = std::stol(token,  NULL, 0);
+                value = strtol(token,  NULL, 0);
                 properties.push_back(value);
                 token = strtok (NULL, " ");
             }
@@ -117,7 +117,11 @@ int main(){
         return 0;
     }
 
-    long kernels = 1;
+
+    long kernels = 2;
+
+    std::cin>>kernels;
+    std::cout <<"kernels amount is: " << kernels <<std::endl;
 
     srand(time(NULL));
     time_t start_time = time(NULL);
@@ -134,31 +138,33 @@ int main(){
         } else {
             start_box = (size_t) (size * name + rest);
         }
-        for (int iter = 0; iter < 10000; ++iter){
+        for (int iter = 0; iter < 1000; ++iter){
+//            std::cout<< " It's iteration "<< iter << " my name " << name <<std::endl;
             for (int small_len_index = 0; small_len_index <5; ++small_len_index){
                 for (int small_hei_index = 0; small_hei_index <5; ++small_hei_index){
                     for (int i = 0; !(board->isCounted((start_box + i)%all_size, small_hei_index, small_len_index)); ++i) {
-                                int random_increase = rand()%15;
-                                board->set_not_init((start_box + i)%all_size, small_hei_index, small_len_index);
-                                board->countCell_bacterium((start_box + i)%all_size, small_hei_index, small_len_index,random_increase);
+                        int random_increase = rand()%15;
+//                        std::cout << "my name:" << name << " I'm going right "<< i <<std::endl;
+                        board->set_not_init((start_box + i)%all_size, small_hei_index, small_len_index);
+                        board->countCell_bacterium((start_box + i)%all_size, small_hei_index, small_len_index,random_increase);
                     }
                     for (int i = -1; !(board->isCounted((all_size + start_box + i)%all_size, small_hei_index, small_len_index)); --i) {
-
+//                        std::cout << "my name:" << name << " I'm going left "<< i <<std::endl;
                         int random_increase = rand()%15;
                         board->set_not_init((all_size + start_box + i)%all_size, small_hei_index, small_len_index);
                         board->countCell_bacterium((all_size + start_box + i)%all_size, small_hei_index, small_len_index,random_increase);
                     }
+//                    std::cout << "my name:" << name << " I've done " <<std::endl;
                     #pragma omp barrier
 
                 }
             }
-        }
-
             #pragma omp singe
             {
                 board->changeMode();
             }
         }
+    }
     time_t end = time(NULL);
     std::cout << "Execution Time: " << (double)(end-start_time) << " Seconds" <<std::endl;
     return 0;

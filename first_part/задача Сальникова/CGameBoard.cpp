@@ -6,6 +6,9 @@
 #include "CSecondTypeBacterium.h"
 #include "CFirstTypeBacterium.h"
 
+#include <stdlib.h>
+#include <time.h>
+
 CGameBoard::CGameBoard(long len, long heig):length(len), height(heig){
     now = 0;
     if (heig < 0 || len < 0)
@@ -110,7 +113,8 @@ void CGameBoard::prepareTorus() {
 
 
 
-void CGameBoard::countCell_bacterium(long index) {
+void CGameBoard::countCell_bacterium(long index, int random_increase) {
+    threeToruses[(now+prev_board) %3].torus[index].properties[breeding_ground]+=random_increase;
     Sell *completed = &threeToruses[(now + prev_board) % 3].torus[index];
     Sell *toCount = &threeToruses[now].torus[index];
 
@@ -215,6 +219,38 @@ void CGameBoard::countCell_bacterium(long index) {
 void CGameBoard::set_not_init(long index) {
     threeToruses[(now+next_board) % 3].torus[index].set_not_init();
 }
+
+
+
+bool CGameBoard::isCounted(long box, long small_hei_index, long small_len_index) {
+    long coub_len_index = box % (length / 5);
+    long coub_hei_index = box / (length / 5);
+    long i = coub_len_index * 5 + small_len_index;
+    long j = coub_hei_index * 5 + small_hei_index;
+    return threeToruses[now].torus[i+length * j].initialised_bacterium;
+}
+
+void CGameBoard::countCell_bacterium(long box, long small_hei_index, long small_len_index, int random_increase) {
+    long coub_len_index = box % (length / 5);
+    long coub_hei_index = box / (length / 5);
+    long i = coub_len_index * 5 + small_len_index;
+    long j = coub_hei_index * 5 + small_hei_index;
+    countCell_bacterium(i+length * j, random_increase);
+}
+
+void CGameBoard::set_not_init(long box, long small_hei_index, long small_len_index) {
+    long coub_len_index = box % (length / 5);
+    long coub_hei_index = box / (length / 5);
+    long i = coub_len_index * 5 + small_len_index;
+    long j = coub_hei_index * 5 + small_hei_index;
+    set_not_init(i+length * j);
+}
+
+
+
+
+
+
 
 
 

@@ -2,12 +2,20 @@
 <module type="CPP_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/IBacterium.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/IBacterium.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/CTorus.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/CSecondTypeBacterium.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/CGameBoard.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/CFirstTypeBacterium.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Sell.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CGameBoard.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/CFirstTypeBacterium.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/CTorus.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/main.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/CTorus.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/CGameBoard.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/CTorus.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Sell.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/CSecondTypeBacterium.h" isTestSource="false" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">

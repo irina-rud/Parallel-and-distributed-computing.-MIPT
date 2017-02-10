@@ -11,13 +11,13 @@
 
 class Sell {
 public:
-    bool initialised_bacterium = false;
-    bool initialised_properties = false;
+    bool initialised_bacterium;
+    bool initialised_properties;
 
-    bool settled = false;
+    bool settled;
     IBacterium* bacterium;
-    long* properties = new long[3];
-    long starvation_limits = inf_lives;
+    long* properties;
+    long starvation_limits;
 
     Sell();
     void init_empty(IBacterium* empty);

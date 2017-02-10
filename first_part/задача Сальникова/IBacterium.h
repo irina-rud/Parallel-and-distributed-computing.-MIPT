@@ -17,13 +17,13 @@
 
 class IBacterium {
 public:
-    int type = not_initialised;
+    int type;
 
-    long* living_bound = new long[3];
-    long* consumption_secretion = new long[3];
-    long* cell_division = new long[3];
+    long* living_bound;
+    long* consumption_secretion;
+    long* cell_division;
 
-    long* extra_mode = new long[3];
+    long* extra_mode;
     bool turbo_division_mode;
     bool starvation_mode;
 

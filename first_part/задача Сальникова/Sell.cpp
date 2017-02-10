@@ -7,6 +7,14 @@
 
 
 Sell::Sell(){
+    initialised_bacterium = false;
+    initialised_properties = false;
+
+    settled = false;
+    bacterium;
+    properties = new long[3];
+    starvation_limits = inf_lives;
+
     properties[breeding_ground] = 0;
     properties[first_substance] = 0;
     properties[second_substance] = 0;
@@ -24,8 +32,8 @@ void Sell::init_empty(IBacterium* empty){
 }
 
 void Sell::set_not_init(){
-    initialised_bacterium = true;
-    initialised_properties = true;
+    initialised_bacterium = false;
+    initialised_properties = false;
     properties[breeding_ground] = 0;
     properties[first_substance] = 0;
     properties[second_substance] = 0;

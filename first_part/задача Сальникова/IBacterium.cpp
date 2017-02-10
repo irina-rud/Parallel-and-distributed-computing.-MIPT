@@ -7,7 +7,16 @@
 #include <exception>
 
 
-IBacterium::IBacterium(){}
+IBacterium::IBacterium(){
+    type = not_initialised;
+
+    living_bound = new long[3];
+    consumption_secretion = new long[3];
+    cell_division = new long[3];
+
+    extra_mode = new long[3];
+
+}
 void IBacterium::print(){
     if (type == not_initialised){
         std::cout<< "Not initialised type of bacterium"<<std::endl;

@@ -7,8 +7,6 @@
 #include <iostream>
 #include <vector>
 #include <exception>
-#include <atomic>
-#include <mutex>
 #include "CTorus.h"
 #include "names.h"
 
@@ -35,9 +33,14 @@ public:
 
     void changeMode();
 
-    void countCell_bacterium(long index);
+    void countCell_bacterium(long index, int random_increase);
+    void countCell_bacterium(long box, long small_hei_index,long small_len_index, int random_increase);
+
     void set_not_init(long index);
+    void set_not_init(long box, long small_hei_index,long small_len_index);
 
     void printTorus();
+
+    bool isCounted(long box, long small_hei_index,long small_len_index);
 };
 
